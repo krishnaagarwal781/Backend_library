@@ -9,7 +9,10 @@ client = MongoClient("mongodb+srv://parth01:parth123@cluster0.77are8z.mongodb.ne
 db = client["Library"]
 collection = db["students"]
 
-app = FastAPI()
+app = FastAPI(
+    title="Student Library",
+    docs_url="/api",
+)
 
 class Address(BaseModel):
     city: str
