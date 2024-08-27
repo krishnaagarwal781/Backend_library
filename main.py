@@ -1,10 +1,10 @@
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pymongo import MongoClient
 from bson import ObjectId
 
-#Information related to database can be kept in private but in task it was not mention so added in main file only
-
+# Information related to the database can be kept private, but in the task, it was not mentioned, so added in the main file only
 client = MongoClient("mongodb+srv://parth01:parth123@cluster0.77are8z.mongodb.net/?retryWrites=true&w=majority")
 db = client["Library"]
 collection = db["students"]
@@ -12,6 +12,15 @@ collection = db["students"]
 app = FastAPI(
     title="Student Library",
     docs_url="/api",
+)
+
+# Add CORS middleware to allow all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
 )
 
 class Address(BaseModel):
